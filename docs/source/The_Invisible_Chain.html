@@ -1,0 +1,772 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>The Invisible Chain</title>
+<meta name="description" content="A seven-step flow, drawn from the Principal Upanishads, for building web3 apps that are fair underneath and effortless on top, so ordinary people actually use them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday: a practical guide for builders, calm and exact
+   IDEA salt dissolved in water (Chāndogya 6.13): the chain is everywhere in the app and visible nowhere
+   PICTURE the seven-station route of the flow; below it a phone screen whose hidden layers can be "tasted"
+   COLOUR the series' paper ground and ink; teal leads (water, fairness), amber supports, coral marks failure
+   TYPE Inter for structure, Instrument Serif for voice, Tiro Devanagari for the verses
+   LAYOUT title over a full-width route on laptop; on phone the route turns vertical under the title */
+:root{
+  --bg:#fbf8f2; --card:#fffdf9; --ink:#232327; --muted:#6c6a72; --faint:#a6a3a9; --line:#e6e1d7; --line-2:#d8d1c3;
+  --teal:#0f8a7c; --orange:#d95f0e; --amber:#b88300; --coral:#d9484d; --green:#2f8f44; --blue:#2f6fdf; --violet:#8e4ec6;
+  --accent:#0f8a7c;
+  --shadow:0 1px 2px rgba(40,30,10,.04),0 8px 30px rgba(40,30,10,.06);
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --deva:"Tiro Devanagari Sanskrit","Noto Serif Devanagari",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d0f13; --card:#14171c; --ink:#e4e2dc; --muted:#9a978f; --faint:#6a6862; --line:#23272e; --line-2:#2e333b;
+    --teal:#3dc9b6; --orange:#ff9a52; --amber:#f2c14e; --coral:#ff6b70; --green:#6fd27e; --blue:#7aa6ff; --violet:#b98ef0; --accent:#3dc9b6;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.35); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d0f13; --card:#14171c; --ink:#e4e2dc; --muted:#9a978f; --faint:#6a6862; --line:#23272e; --line-2:#2e333b;
+  --teal:#3dc9b6; --orange:#ff9a52; --amber:#f2c14e; --coral:#ff6b70; --green:#6fd27e; --blue:#7aa6ff; --violet:#b98ef0; --accent:#3dc9b6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.35); color-scheme:dark;
+}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+::selection{background:color-mix(in srgb,var(--accent) 25%,transparent)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+@media (max-width:600px){.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+p{margin:0 0 1em}
+a{color:var(--accent)}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+.brand{font:500 13px/1 var(--sans);color:var(--muted);text-decoration:none;white-space:nowrap}
+.brand b{color:var(--ink);font-weight:600}
+.chapters{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.chapters::-webkit-scrollbar{display:none}
+.chapters a{font:500 13px/1 var(--sans);color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:99px;white-space:nowrap}
+.chapters a:hover{color:var(--ink);background:var(--line)}
+.theme-btn{border:1px solid var(--line-2);background:var(--card);color:var(--ink);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;flex:none}
+@media (max-width:860px){.chapters{display:none}.bar .theme-btn{margin-left:auto}}
+
+/* hero */
+.hero{padding:56px 0 24px}
+.hero h1{font:700 clamp(40px,6.4vw,72px)/1.02 var(--sans);letter-spacing:-.04em;margin:0 0 16px}
+.lede{font:italic 400 clamp(20px,2.3vw,26px)/1.38 var(--serif);color:var(--muted);max-width:44ch;margin:0 0 30px}
+
+/* route (the flow) */
+.route{list-style:none;margin:0;padding:22px 18px 18px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;position:relative;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.route::before{content:"";position:absolute;left:calc(18px + (100% - 36px)/14);right:calc(18px + (100% - 36px)/14);top:44px;height:5px;border-radius:5px;background:linear-gradient(90deg,var(--amber),var(--teal))}
+.route li{position:relative;text-align:center;padding:0 2px}
+.route a{display:block;text-decoration:none;color:inherit;border-radius:14px;padding:0 2px 6px}
+.route a:hover .stop{transform:scale(1.08)}
+.stop{width:50px;height:50px;margin:0 auto 12px;border-radius:50%;background:var(--card);border:5px solid var(--teal);display:grid;place-items:center;font:700 17px/1 var(--sans);position:relative;transition:transform .2s}
+.route li:nth-child(1) .stop,.route li:nth-child(2) .stop{border-color:var(--amber)}
+.route .sk{display:block;font:400 18px/1.2 var(--deva);color:var(--muted);margin-bottom:4px}
+.route .en{display:block;font:600 14.5px/1.25 var(--sans)}
+.route .rf{display:block;font:500 12px/1.3 var(--sans);color:var(--faint);margin-top:4px}
+.route-cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:500 13px/1.4 var(--sans);color:var(--muted);margin:12px 4px 0}
+.route-cap b{color:var(--amber);font-weight:600}.route-cap b.t{color:var(--teal)}
+@media (max-width:860px){
+  .route{grid-template-columns:1fr;gap:0;padding:18px}
+  .route::before{left:42px;right:auto;top:44px;bottom:44px;width:5px;height:auto;background:linear-gradient(180deg,var(--amber),var(--teal))}
+  .route li{text-align:left}
+  .route a{display:grid;grid-template-columns:50px 1fr;column-gap:14px;align-items:center;padding:6px 0}
+  .stop{margin:0;grid-row:span 3}
+  .route .sk{margin:0}
+}
+
+/* sections */
+section{padding:clamp(56px,8vw,96px) 0}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line-2),transparent)}
+.num{font:500 13px/1 var(--sans);color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.num .ref{color:var(--accent)}
+h2{font:700 clamp(30px,4.2vw,46px)/1.08 var(--sans);letter-spacing:-.035em;margin:12px 0 14px}
+.kicker{font:italic 400 clamp(19px,2vw,22px)/1.45 var(--serif);color:var(--muted);margin:0 0 30px;max-width:60ch}
+.prose{font-size:17px;max-width:66ch}
+h3.sub{font:600 19px/1.3 var(--sans);letter-spacing:-.01em;margin:34px 0 12px}
+.cols2{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:start}
+@media (max-width:860px){.cols2{grid-template-columns:1fr;gap:8px}}
+
+/* verse */
+.verse{margin:18px 0 24px;border-radius:20px;background:var(--card);border:1px solid var(--line);padding:24px 22px 16px;position:relative;box-shadow:var(--shadow)}
+.verse .sa{font:400 clamp(18px,2.1vw,22px)/1.7 var(--deva);margin:0 0 8px}
+.verse .iast{font:italic 400 14.5px/1.6 var(--deva);color:var(--muted);margin:0 0 14px}
+.verse blockquote{margin:0;padding:14px 0 0;border-top:1px dashed var(--line-2);font:400 20px/1.45 var(--serif)}
+.verse .cap{margin-top:12px;font:500 13px/1.4 var(--sans);color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.verse .tag{position:absolute;top:-12px;left:20px;font:600 12px/1 var(--sans);background:var(--accent);color:#fff;padding:6px 10px;border-radius:99px}
+:root[data-theme="dark"] .verse .tag{color:#0d0f13}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .verse .tag{color:#0d0f13}}
+.reading{border-left:2px solid var(--accent);padding:4px 0 4px 18px;margin:22px 0;max-width:66ch}
+.reading h4{font:600 14px/1 var(--sans);color:var(--accent);margin:0 0 10px}
+.reading p{font-size:17px}
+
+/* practice cards */
+.do{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+@media (max-width:640px){.do{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.card h5{margin:0 0 8px;font:600 15px/1.3 var(--sans)}
+.card ul{margin:0;padding-left:18px;font-size:15.5px}
+.card li{margin:4px 0}
+.card.yes{border-color:color-mix(in srgb,var(--teal) 35%,var(--line))}.card.yes h5{color:var(--teal)}
+.card.no{border-color:color-mix(in srgb,var(--coral) 35%,var(--line))}.card.no h5{color:var(--coral)}
+.test{display:flex;gap:14px;align-items:flex-start;background:color-mix(in srgb,var(--amber) 8%,var(--card));border:1px solid color-mix(in srgb,var(--amber) 30%,var(--line));border-radius:16px;padding:16px 18px;margin:18px 0 0;max-width:760px}
+.test b{font:600 13px/1.5 var(--sans);color:var(--amber);white-space:nowrap;padding-top:2px}
+.test p{margin:0;font-size:16.5px}
+
+/* matrix */
+.matrix{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto 28px;gap:10px;margin:10px 0 8px}
+.axis-y{grid-row:1/3;writing-mode:vertical-rl;transform:rotate(180deg);font:600 13px/1 var(--sans);color:var(--muted);text-align:center;display:flex;align-items:center;justify-content:center}
+.axis-x{grid-column:2/4;font:600 13px/28px var(--sans);color:var(--muted);text-align:center}
+.q{border-radius:18px;padding:18px;border:1px solid var(--line);background:var(--card);min-height:150px;position:relative}
+.q h4{margin:0 0 6px;font:700 18px/1.2 var(--sans);letter-spacing:-.01em}
+.q p{margin:0;font-size:15px;color:var(--muted)}
+.q small{display:block;margin-top:10px;font:500 13px/1.4 var(--sans);color:var(--faint)}
+.q.hard{border-color:color-mix(in srgb,var(--amber) 40%,var(--line))}.q.hard h4{color:var(--amber)}
+.q.goal{background:color-mix(in srgb,var(--teal) 10%,var(--card));border:2px solid var(--teal)}.q.goal h4{color:var(--teal)}
+.q.ext h4{color:var(--orange)}.q.scam h4{color:var(--coral)}
+.q.hard::after{content:"→";position:absolute;right:-19px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--teal);color:var(--bg);display:grid;place-items:center;font:700 15px/1 var(--sans);z-index:2}
+@media (max-width:640px){.matrix{grid-template-columns:22px minmax(0,1fr) minmax(0,1fr);gap:8px}.q{padding:12px;min-height:130px}.q h4{font-size:15.5px}.q p{font-size:13.5px}.q small{display:none}}
+
+/* phone / salt */
+.salt{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:36px;align-items:start;margin-top:10px}
+@media (max-width:760px){.salt{grid-template-columns:1fr;gap:20px}}
+.phone{background:#111316;border-radius:42px;padding:12px;box-shadow:var(--shadow);max-width:340px;width:100%;margin:0 auto}
+.screen{background:#fbfaf7;color:#1d1d20;border-radius:32px;overflow:hidden;font:15px/1.4 var(--sans)}
+.sbar{display:flex;justify-content:space-between;font:600 12.5px/1 var(--sans);padding:14px 22px 6px}
+.app{padding:8px 16px 18px}
+.app h4{margin:2px 0 2px;font:700 21px/1.2 var(--sans);letter-spacing:-.02em}
+.app .sub{color:#6c6a72;font-size:13.5px;margin-bottom:12px}
+.row{position:relative;border:1px solid #e8e3d8;border-radius:16px;padding:12px 14px;margin:8px 0;background:#fff}
+.row .big{font:700 24px/1.1 var(--sans);letter-spacing:-.02em}
+.row .lbl{font-size:13px;color:#6c6a72}
+.pay{display:block;width:100%;border:0;border-radius:14px;background:#0f8a7c;color:#fff;font:600 16px/1 var(--sans);padding:15px;margin-top:10px}
+.members{display:flex;gap:6px;margin-top:6px}
+.members i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:600 11.5px/1 var(--sans);font-style:normal;color:#fff}
+.under{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed #c9c2b3;font:500 12.5px/1.45 var(--mono);color:#0f8a7c}
+.tasted .under{display:block}
+.tasted .row{border-color:#0f8a7c}
+.layers{display:grid;gap:10px}
+.layer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.layer>div{padding:12px 14px;font-size:15px}
+.layer>div:first-child{border-right:1px solid var(--line)}
+.layer b{display:block;font:600 13px/1.3 var(--sans);margin-bottom:3px}
+.layer .see b{color:var(--muted)}.layer .is b{color:var(--teal)}
+.layer.head>div{padding:8px 14px;font:600 13px/1.2 var(--sans);color:var(--muted);background:transparent}
+.layer.head{border:0;background:transparent}.layer.head>div:first-child{border:0}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+.btn{font:600 15px/1 var(--sans);border:1px solid var(--line-2);background:var(--card);color:inherit;padding:12px 16px;border-radius:12px;cursor:pointer;min-height:44px}
+.btn:hover{border-color:var(--faint)}
+.btn[aria-pressed="true"]{background:color-mix(in srgb,var(--accent) 14%,var(--card));border-color:color-mix(in srgb,var(--accent) 55%,var(--line-2))}
+.btn:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.status{font:500 14px/1.4 var(--sans);color:var(--muted)}
+
+/* birds */
+.birds{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow)}
+.birds svg{display:block;width:100%;height:auto}
+.birds svg text{font:500 13px var(--sans);fill:var(--muted)}
+.birds figcaption{font:500 13px/1.4 var(--sans);color:var(--muted);padding:6px 4px 0}
+
+/* tables */
+.tw{overflow-x:auto;margin:16px 0}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+.t th{font:600 13px/1.2 var(--sans);color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line-2)}
+.t td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+.t td:first-child{font-weight:600}
+.t em{font:italic 400 15px var(--deva);color:var(--muted)}
+@media (max-width:700px){.t.stack thead{display:none}.t.stack tr{display:grid;padding:10px 0;border-bottom:1px solid var(--line)}.t.stack td{border:0;padding:5px 0;display:grid;grid-template-columns:7.5em 1fr;gap:10px}.t.stack td::before{content:attr(data-l);font:600 13px/1.5 var(--sans);color:var(--muted)}}
+
+/* da da da */
+.da{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+@media (max-width:760px){.da{grid-template-columns:1fr}}
+.da .card{padding:20px}
+.da .s{font:400 30px/1 var(--deva);color:var(--accent);margin-bottom:6px}
+.da h5{font-size:17px}
+
+/* checker */
+.checker{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.checker{grid-template-columns:1fr}}
+.qs{display:grid;gap:8px}
+.qs label{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px;cursor:pointer}
+.qs label:has(input:checked){border-color:color-mix(in srgb,var(--teal) 50%,var(--line))}
+.qs input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--teal)}
+.qs span{font-size:15.5px}
+.qs small{display:block;color:var(--faint);font:500 12.5px/1.4 var(--sans);margin-top:3px}
+.idea{width:100%;font:16px/1.4 var(--sans);padding:12px 14px;border-radius:12px;border:1px solid var(--line-2);background:var(--card);color:var(--ink);margin-bottom:12px}
+.verdict{position:sticky;top:76px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+.verdict .score{font:700 52px/1 var(--sans);letter-spacing:-.04em}
+.verdict .score small{font:500 18px var(--sans);color:var(--muted);letter-spacing:0}
+.dots{display:flex;gap:6px;margin:12px 0 14px}
+.dots i{flex:1;height:8px;border-radius:8px;background:var(--line-2)}
+.dots i.on{background:var(--teal)}
+.verdict h4{margin:0 0 6px;font:600 17px/1.3 var(--sans)}
+.verdict ul{margin:8px 0 0;padding-left:18px;font-size:15px;color:var(--muted)}
+.verdict .reset{margin-top:14px}
+
+/* close + footer */
+.close{text-align:center}
+.close .sa{font:400 clamp(22px,3vw,30px)/1.6 var(--deva);margin:0 0 6px}
+.close .iast{font:italic 400 15px/1.6 var(--deva);color:var(--muted);margin:0 0 14px}
+.close blockquote{font:400 clamp(24px,3vw,34px)/1.3 var(--serif);margin:0 auto 10px;max-width:30ch}
+.close cite{font:500 13px var(--sans);color:var(--muted);font-style:normal}
+footer{padding:44px 0 64px;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr}}
+footer h5{font:600 14px/1 var(--sans);color:var(--ink);margin:0 0 12px}
+footer ul{margin:0;padding:0;list-style:none;display:grid;gap:5px}
+footer code{font:500 12.5px var(--mono)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.stop{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top">Upa<b>Sārathi</b> · reflections</a>
+    <nav class="chapters" aria-label="Chapters">
+      <a href="#why">Why it stalls</a><a href="#clay">One flow</a><a href="#s1">Dharma</a><a href="#s2">Food</a><a href="#s3">Salt</a><a href="#s4">Both</a><a href="#s5">Guest</a><a href="#s6">Witness</a><a href="#s7">Fullness</a><a href="#example">Example</a><a href="#check">Check your idea</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle light or dark theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <h1>The Invisible Chain</h1>
+    <p class="lede">Blockchains promise fairness, yet few people use them. The Upanishads describe something that is present everywhere and seen nowhere. That is how a fair app should feel. Here is a seven-step flow for building one.</p>
+    <ol class="route" aria-label="The seven-step flow">
+      <li><a href="#s1"><span class="stop">1</span><span class="sk">धर्म</span><span class="en">Find the dharma</span><span class="rf">Bṛhadāraṇyaka 1.4.14</span></a></li>
+      <li><a href="#s2"><span class="stop">2</span><span class="sk">अन्न</span><span class="en">Start with food</span><span class="rf">Taittirīya 3.9</span></a></li>
+      <li><a href="#s3"><span class="stop">3</span><span class="sk">लवण</span><span class="en">Dissolve the chain</span><span class="rf">Chāndogya 6.13</span></a></li>
+      <li><a href="#s4"><span class="stop">4</span><span class="sk">उभयं सह</span><span class="en">Use both worlds</span><span class="rf">Īśā 9–11</span></a></li>
+      <li><a href="#s5"><span class="stop">5</span><span class="sk">अतिथि</span><span class="en">Treat the user as a guest</span><span class="rf">Taittirīya 1.11</span></a></li>
+      <li><a href="#s6"><span class="stop">6</span><span class="sk">साक्षी</span><span class="en">Keep a quiet witness</span><span class="rf">Muṇḍaka 3.1.1</span></a></li>
+      <li><a href="#s7"><span class="stop">7</span><span class="sk">पूर्ण</span><span class="en">Leave it full</span><span class="rf">Īśā 0–1</span></a></li>
+    </ol>
+    <div class="route-cap"><span><b>Steps 1–2</b> decide whether to build at all</span><span><b class="t">Steps 3–7</b> decide whether anyone will use it</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="why">
+  <div class="wrap">
+    <div class="num"><span>The problem</span><span class="ref">Kaṭha 1.2.2 · 1.3.14</span></div>
+    <h2>People pick the pleasant over the good. The Kaṭha said so first.</h2>
+    <p class="kicker">Web3 offers the good: ownership, open rules, no middleman who can cheat. People keep choosing the easy app anyway. That isn't foolishness. The text explains exactly why.</p>
+    <div class="cols2">
+      <div>
+        <div class="verse"><span class="tag">Kaṭha 1.2.2</span>
+          <p class="sa">श्रेयश्च प्रेयश्च मनुष्यमेतः<br>तौ सम्परीत्य विविनक्ति धीरः ।<br>श्रेयो हि धीरोऽभि प्रेयसो वृणीते<br>प्रेयो मन्दो योगक्षेमाद्वृणीते ॥</p>
+          <p class="iast">śreyaśca preyaśca manuṣyametaḥ · tau samparītya vivinakti dhīraḥ · śreyo hi dhīro'bhi preyaso vṛṇīte · preyo mando yogakṣemādvṛṇīte</p>
+          <blockquote>“The preferable and the pleasurable approach man. The intelligent one examines both and separates them … the ignorant one selects the pleasurable for the sake of yoga (attainment of that which is not already possessed) and kshema (the preservation of that which is already in possession).”</blockquote>
+          <div class="cap"><span>tr. Vidyavachaspati V. Panoli</span></div>
+        </div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>What this means for builders</h4>
+          <p>The verse names the motive: <strong>yoga-kṣema</strong>, getting what you don't have and keeping what you do. Users pick the pleasant app because it gets them paid and keeps their money safe <em>today</em>, with no seed phrase to lose.</p>
+          <p>You can't make the whole world <em>dhīra</em>, patient enough to choose the good over the easy. So build the good thing so it also wins on yoga-kṣema. When the fair choice is also the easy one, people don't have to be wise to pick it.</p>
+        </div>
+        <p>Kaṭha 1.3.14 describes the path as “sharp as a razor's edge, impassable, and hard to go by”. That is web3 onboarding today: wallets, gas, bridges, irreversible mistakes. The text accepts that the inner path is hard. An app that has to feed you every day shouldn't be.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Where apps sit today</h3>
+    <div class="matrix" role="img" aria-label="Two by two grid: good versus pleasant">
+      <div class="axis-y">Good for people (śreyas) ↑</div>
+      <div class="q hard"><h4>Good but hard</h4><p>Most web3 today. Fair rules, but seed phrases, gas fees, jargon and no undo.</p><small>Only the dhīra stay.</small></div>
+      <div class="q goal"><h4>Good and easy</h4><p>The target. Fair underneath, effortless on top. The user feels the fairness without seeing the chain.</p><small>This guide.</small></div>
+      <div class="q scam"><h4>Neither</h4><p>Pump-and-dump tokens, rug pulls, “earn” schemes. They damage trust for every honest builder.</p><small>Kaṭha's preyas at its worst.</small></div>
+      <div class="q ext"><h4>Easy but extractive</h4><p>Walled-garden platforms. Smooth to use, but they own your data, your reputation and the rules.</p><small>Pleasant, until the rules change.</small></div>
+      <div class="axis-x">Pleasant to use (preyas) →</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="clay">
+  <div class="wrap cols2">
+    <div>
+      <div class="num"><span>Why one flow fits every use case</span><span class="ref">Chāndogya 6.1.4</span></div>
+      <h2>Many pots, one clay</h2>
+      <p class="prose">Uddālaka tells his son that once you know one lump of clay, you know every pot made from it; the pot's name is just a name. A savings circle, an aid payment, a farmer's receipt, a degree certificate: each has its own name and form. Underneath, the same seven questions apply to all of them. Learn the clay, and any pot becomes buildable.</p>
+    </div>
+    <div class="verse"><span class="tag">Chāndogya 6.1.4</span>
+      <p class="sa">यथा सोम्यैकेन मृत्पिण्डेन सर्वं मृन्मयं विज्ञातं स्यात् ।<br>वाचारम्भणं विकारो नामधेयं मृत्तिकेत्य् एव सत्यम् ॥</p>
+      <p class="iast">yathā somyaikena mṛtpiṇḍena sarvaṃ mṛnmayaṃ vijñātaṃ syāt · vācārambhaṇaṃ vikāro nāmadheyaṃ mṛttikety eva satyam</p>
+      <blockquote>“Dear boy, just as through a single clod of clay all that is made of clay would become known, for all modifications is but name based upon words and the clay alone is real.”</blockquote>
+      <div class="cap"><span>tr. Swami Swahananda</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEP 1 -->
+<section id="s1">
+  <div class="wrap">
+    <div class="num"><span>Step 1 of 7</span><span class="ref">Bṛhadāraṇyaka 1.4.14</span></div>
+    <h2>Find the dharma: who is weak, who is strong?</h2>
+    <p class="kicker">Before choosing a chain, find the imbalance. Fairness technology exists so the weak can hold the strong to a rule.</p>
+    <div class="cols2">
+      <div class="verse"><span class="tag">Bṛhadāraṇyaka 1.4.14</span>
+        <p class="sa">तद् एतत् क्षत्रस्य क्षत्रं यद् धर्मः ।<br>तस्माद् धर्मात् परं नास्ति ।<br>अथो अबलीयान् बलीयांसम् आशंसते धर्मेण ।</p>
+        <p class="iast">tad etat kṣatrasya kṣatraṃ yad dharmaḥ · tasmād dharmāt paraṃ nāsti · atho abalīyān balīyāṃsam āśaṃsate dharmeṇa</p>
+        <blockquote>“This righteousness is the controller of the Kshatriya. Therefore there is nothing higher than that. (So) even a weak man hopes (to defeat) a stronger man through righteousness.”</blockquote>
+        <div class="cap"><span>tr. Swami Madhavananda</span></div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>The reading</h4>
+          <p>Dharma is <em>kṣatrasya kṣatram</em>, the power over power. A good blockchain is that idea built in code: a rule that even its strongest participant cannot quietly override.</p>
+          <p>So the first question is never “which chain?” It is: <strong>who could cheat here, who gets hurt, and what rule would stop it?</strong> If nobody strong can bend the rules, an ordinary database is fine. Many failed web3 projects never had a weak party to protect.</p>
+        </div>
+      </div>
+    </div>
+    <div class="do">
+      <div class="card yes"><h5>Do</h5><ul><li>Write one sentence: “<em>[Weak party]</em> can't trust <em>[strong party]</em> to <em>[action]</em>.”</li><li>Name the exact rule that must never be bent.</li><li>Talk to the weak party first, not to other builders.</li></ul></div>
+      <div class="card no"><h5>Avoid</h5><ul><li>Starting with a token and searching for a use.</li><li>Putting things on-chain that one honest company could run.</li><li>A “decentralised” app where your team can still change every rule.</li></ul></div>
+    </div>
+    <div class="test"><b>The test</b><p>Can you name a real person who loses money or dignity today because someone stronger controls the record?</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEP 2 -->
+<section id="s2">
+  <div class="wrap">
+    <div class="num"><span>Step 2 of 7</span><span class="ref">Taittirīya 3.9</span></div>
+    <h2>Start with food, not with tokens</h2>
+    <p class="kicker">Bhṛgu's teaching starts with food and only later reaches bliss. Mainstream use starts the same way, with daily needs.</p>
+    <div class="cols2">
+      <div class="verse"><span class="tag">Taittirīya 3.9</span>
+        <p class="sa">अन्नं बहु कुर्वीत । तद्व्रतम् ।</p>
+        <p class="iast">annaṃ bahu kurvīta · tadvratam</p>
+        <blockquote>“His vow is that he should make food plentiful.”</blockquote>
+        <div class="cap"><span>tr. Swami Gambhirananda</span></div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>The reading</h4>
+          <p>The sage's vow is not to study food. It is to make it <em>plentiful</em>. Most people will meet web3 through bread-and-butter things: wages, savings, rent, crop payments, school fees, aid, certificates, tickets. These are things they do every week whether or not a chain exists.</p>
+          <p>Speculation is the opposite: it asks people to want the technology for its own sake. Build for something they already do, and make it cheaper, faster or harder to cheat.</p>
+        </div>
+      </div>
+    </div>
+    <div class="do">
+      <div class="card yes"><h5>Good “food” use cases</h5><ul><li>Group savings and rotating funds</li><li>Welfare and aid payments that reach the person in full</li><li>Farmers' sale receipts and fair weighing</li><li>Gig workers' ratings and work history they can carry</li><li>Degrees and skill certificates anyone can verify</li></ul></div>
+      <div class="card no"><h5>Not food</h5><ul><li>A token whose main use is trading the token</li><li>“Play to earn” loops that need new players to pay old ones</li><li>Collectibles with no use beyond resale</li></ul></div>
+    </div>
+    <div class="test"><b>The test</b><p>Would someone use this every week even if they never learned the word “blockchain”?</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEP 3 -->
+<section id="s3">
+  <div class="wrap">
+    <div class="num"><span>Step 3 of 7</span><span class="ref">Chāndogya 6.13 · Kena 1.6 · Kaṭha 1.3.12</span></div>
+    <h2>Dissolve the chain like salt in water</h2>
+    <p class="kicker">Uddālaka asks Śvetaketu to drop salt in water and bring it back the next morning. He can't find it. Then he tastes the water from the top, the middle and the bottom, and it is salt every time.</p>
+    <div class="cols2">
+      <div class="verse"><span class="tag">Chāndogya 6.13.2</span>
+        <p class="sa">अङ्गास्यान्ताद् आचामेति । कथम् इति । लवणम् इति ।<br>मध्याद् आचामेति । कथम् इति । लवणम् इति ।</p>
+        <p class="iast">aṅgāsyāntād ācāmeti · katham iti · lavaṇam iti · madhyād ācāmeti · katham iti · lavaṇam iti</p>
+        <blockquote>“‘My child, take a sip from the top of this water. How is it?’ ‘It is salt’. ‘Take a sip from the middle. How is it?’ ‘It is salt’.”</blockquote>
+        <div class="cap"><span>tr. Swami Swahananda</span></div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>The reading</h4>
+          <p>This is the single most important step. The chain should be like the salt: in every sip, visible in none. The user should taste fairness (the pot can't vanish, the receipt can't be changed) without ever seeing a wallet address, a gas fee or a token name.</p>
+          <p>Kena 1.6 says Brahman is “that which man does not see with the eye” but “by which man sees”. Good infrastructure works the same way. Kaṭha 1.3.12: “This Self hidden in all beings does not shine.” It is hidden, yet it is what makes the whole thing work.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Taste the water: a savings-circle app</h3>
+    <div class="btnrow">
+      <button class="btn" id="tasteBtn" aria-pressed="false">Show what's dissolved</button>
+      <span class="status" id="tasteStatus">This is what the user sees. No chain words anywhere.</span>
+    </div>
+    <div class="salt">
+      <div class="phone" id="phone">
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><span>●●● 5G</span></div>
+          <div class="app">
+            <h4>Lakshmi Circle</h4>
+            <div class="sub">12 members · ₹2,000 a month</div>
+            <div class="row"><div class="lbl">Pot this month</div><div class="big">₹24,000</div><div class="lbl">Goes to Meena on 5 March</div><div class="under">rule in a smart contract: pot can only go to the scheduled member</div></div>
+            <div class="row"><div class="lbl">Paid so far</div>
+              <div class="members"><i style="background:#0f8a7c">M</i><i style="background:#0f8a7c">R</i><i style="background:#0f8a7c">S</i><i style="background:#0f8a7c">A</i><i style="background:#0f8a7c">K</i><i style="background:#0f8a7c">P</i><i style="background:#0f8a7c">J</i><i style="background:#0f8a7c">D</i><i style="background:#c9c2b3">N</i><i style="background:#c9c2b3">V</i><i style="background:#c9c2b3">T</i><i style="background:#c9c2b3">G</i></div>
+              <div class="under">each payment written to a shared ledger every member can read</div></div>
+            <div class="row"><div class="lbl">Signed in as</div><div style="font-weight:600">Ravi · +91 98•••• 4410</div><div class="under">wallet created from a passkey on this phone; no seed phrase</div></div>
+            <button class="pay" type="button">Pay ₹2,000 with UPI</button>
+            <div class="row" style="margin-top:10px"><div class="lbl">Fees</div><div style="font-weight:600">₹0 for members</div><div class="under">network fees paid by the circle's sponsor (gas sponsorship)</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="layers">
+        <div class="layer head"><div>What the user sees</div><div>What is dissolved underneath</div></div>
+        <div class="layer"><div class="see"><b>Phone number or email</b>Familiar sign-in</div><div class="is"><b>Embedded wallet</b>Keys made with a passkey or split across devices (MPC); smart accounts (e.g. ERC-4337)</div></div>
+        <div class="layer"><div class="see"><b>“₹0 fees”</b>Nothing to top up</div><div class="is"><b>Sponsored gas</b>A paymaster covers network fees; use a low-fee chain or rollup</div></div>
+        <div class="layer"><div class="see"><b>Rupees, names, dates</b>Their own language</div><div class="is"><b>Addresses and tokens</b>Readable names in place of 0x… strings; amounts in local currency</div></div>
+        <div class="layer"><div class="see"><b>“Verified” tick</b>Optional detail</div><div class="is"><b>On-chain record</b>Anyone can check it, nobody has to</div></div>
+        <div class="layer"><div class="see"><b>“Lost your phone?”</b>Help, like a bank</div><div class="is"><b>Social recovery</b>Trusted members or guardians can restore access</div></div>
+      </div>
+    </div>
+    <div class="test" style="margin-top:24px"><b>The test</b><p>Hand the app to someone who has never used crypto. Do they finish the main task without asking what any word means?</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEP 4 -->
+<section id="s4">
+  <div class="wrap">
+    <div class="num"><span>Step 4 of 7</span><span class="ref">Īśā 9 · 11</span></div>
+    <h2>Use both worlds together</h2>
+    <p class="kicker">The Īśā warns against both extremes: only the worldly, or only the higher knowledge. It says the way through is both, held together.</p>
+    <div class="cols2">
+      <div>
+        <div class="verse"><span class="tag">Īśā 9</span>
+          <p class="sa">अन्धं तमः प्रविशन्ति येऽविद्यामुपासते ।<br>ततो भूय इव ते तमो य उ विद्यायां रताः ॥</p>
+          <p class="iast">andhaṃ tamaḥ praviśanti ye'vidyāmupāsate · tato bhūya iva te tamo ya u vidyāyāṃ ratāḥ</p>
+          <blockquote>“Those who worship avidya (karma born of ignorance) go to pitch darkness, but to a greater darkness than this go those who are devoted to Vidya (knowledge of the Devatas).”</blockquote>
+          <div class="cap"><span>tr. Vidyavachaspati V. Panoli</span></div>
+        </div>
+        <div class="verse"><span class="tag">Īśā 11</span>
+          <p class="sa">विद्याञ्च अविद्याञ्च यस्तद् वेदोभयं सह ।<br>अविद्यया मृत्युं तीर्त्वा विद्ययामृतमश्नुते ॥</p>
+          <p class="iast">vidyāñca avidyāñca yastad vedobhayaṃ saha · avidyayā mṛtyuṃ tīrtvā vidyayāmṛtamaśnute</p>
+          <blockquote>“He who knows both vidya and avidya together, transcends mortality through avidya and reaches immortality through vidya.”</blockquote>
+          <div class="cap"><span>tr. Vidyavachaspati V. Panoli</span></div>
+        </div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>The reading for builders</h4>
+          <p>In the Īśā, <em>vidyā</em> and <em>avidyā</em> are spiritual terms. Borrowed as a lens: think of the everyday web (logins, bank rails, support desks, phone numbers) as avidyā, and the chain's permanent, open rules as vidyā.</p>
+          <p><strong>Web2 alone</strong> is the first darkness: smooth, but someone else owns the rules. <strong>Web3 alone</strong> is the “greater darkness”: pure principle that ordinary people can't get into. Apps that insist on purity, wallet-only and crypto-only, usually die early.</p>
+          <p>Īśā 11 gives the order: cross <em>mṛtyu</em> through avidyā, then reach the lasting through vidyā. For an app, <em>mṛtyu</em> is the drop-off on day one. Use familiar web tools to get people through it, and keep the chain for what has to outlast you: rules, records and ownership.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tw"><table class="t stack">
+      <thead><tr><th>Job</th><th>Give it to the familiar web</th><th>Give it to the chain</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Job">Sign-in</td><td data-l="Familiar web">Phone, email, passkey</td><td data-l="Chain">The account the login controls</td></tr>
+        <tr><td data-l="Job">Money in and out</td><td data-l="Familiar web">UPI, bank, card, cash agents</td><td data-l="Chain">Escrow rules, or proofs of each payment</td></tr>
+        <tr><td data-l="Job">Speed and search</td><td data-l="Familiar web">Normal servers and caches</td><td data-l="Chain">A small set of facts that must never change</td></tr>
+        <tr><td data-l="Job">Private data</td><td data-l="Familiar web">Encrypted storage, off-chain</td><td data-l="Chain">Only hashes or proofs, never raw personal data</td></tr>
+        <tr><td data-l="Job">Help and disputes</td><td data-l="Familiar web">Humans, chat, phone</td><td data-l="Chain">The record both sides can point to</td></tr>
+      </tbody>
+    </table></div>
+    <div class="test"><b>The test</b><p>Is every on-chain part there because it protects the weak party from Step 1, and nothing else?</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEP 5 -->
+<section id="s5">
+  <div class="wrap">
+    <div class="num"><span>Step 5 of 7</span><span class="ref">Taittirīya 1.11 · Kaṭha 1.3.14</span></div>
+    <h2>Treat the user as a guest</h2>
+    <p class="kicker">At the end of their studies the teacher sends students home with a list of duties. One of them is “Let your guest be a god unto you.” Onboarding is hospitality.</p>
+    <div class="cols2">
+      <div class="verse"><span class="tag">Taittirīya 1.11</span>
+        <p class="sa">अतिथिदेवो भव ।<br>श्रद्धया देयम् । अश्रद्धयाऽदेयम् । श्रिया देयम् ।<br>ह्रिया देयम् । भिया देयम् । संविदा देयम् ।</p>
+        <p class="iast">atithidevo bhava · śraddhayā deyam · aśraddhayā'deyam · śriyā deyam · hriyā deyam · bhiyā deyam · saṃvidā deyam</p>
+        <blockquote>“Let your guest be a god unto you … The offering should be with honour … The offering should be in plenty. The offering should be with modesty. The offering should be with awe. The offering should be with sympathy.”</blockquote>
+        <div class="cap"><span>tr. Swami Gambhirananda</span></div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>Six ways to give, as six design rules</h4>
+          <p><strong>With honour (śraddhā):</strong> assume the user is intelligent, not ignorant. <strong>In plenty (śrī):</strong> give value before asking for anything, such as a free first month or sponsored fees. <strong>With modesty (hrī):</strong> no hype, no “to the moon”. <strong>With awe (bhī):</strong> respect the cost of their mistakes; confirm big actions and offer an undo window. <strong>With sympathy (saṃvid):</strong> the word also means shared understanding, so explain in plain words before they agree to anything.</p>
+          <p>And Kaṭha 1.3.14 says “learn by approaching the exalted ones”. Even a razor-edged path is walkable with a guide. Put a human guide inside the app: a community helper, a field agent or a help line.</p>
+        </div>
+      </div>
+    </div>
+    <div class="do">
+      <div class="card yes"><h5>Do</h5><ul><li>Work in the user's language, with voice for low-literacy users</li><li>Work on cheap phones and patchy networks</li><li>Make recovery possible: no one should lose everything for one mistake</li><li>Show the full cost before the tap, in local currency</li></ul></div>
+      <div class="card no"><h5>Avoid</h5><ul><li>Twelve-word seed phrases on day one</li><li>“Approve unlimited spending” pop-ups</li><li>Asking users to buy a token just to start</li></ul></div>
+    </div>
+    <div class="test"><b>The test</b><p>Could a 60-year-old in a small town finish onboarding in under two minutes, in their own language?</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEP 6 -->
+<section id="s6">
+  <div class="wrap">
+    <div class="num"><span>Step 6 of 7</span><span class="ref">Muṇḍaka 3.1.1 · 3.1.6</span></div>
+    <h2>Keep a quiet witness</h2>
+    <p class="kicker">Two birds sit on one tree. One eats the fruit. The other only watches.</p>
+    <div class="cols2">
+      <div>
+        <figure class="birds">
+          <svg viewBox="0 0 520 230" role="img" aria-label="Two birds on one branch: one eating fruit, one watching">
+            <path d="M10,170 C120,150 260,160 510,138" fill="none" stroke="var(--faint)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M300,156 C320,175 340,190 360,198" fill="none" stroke="var(--faint)" stroke-width="2"/>
+            <g fill="var(--amber)"><circle cx="352" cy="190" r="9"/><circle cx="366" cy="198" r="8"/><circle cx="340" cy="200" r="7"/></g>
+            <g>
+              <ellipse cx="160" cy="135" rx="38" ry="24" fill="color-mix(in srgb,var(--amber) 22%,var(--card))" stroke="var(--amber)" stroke-width="1.5"/>
+              <path d="M124,128 L92,116 L100,138 Z" fill="color-mix(in srgb,var(--amber) 22%,var(--card))" stroke="var(--amber)" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="196" cy="114" r="15" fill="color-mix(in srgb,var(--amber) 22%,var(--card))" stroke="var(--amber)" stroke-width="1.5"/>
+              <path d="M209,112 L226,118 L208,122 Z" fill="var(--amber)"/>
+              <circle cx="200" cy="110" r="2.2" fill="var(--ink)"/>
+              <path d="M150,158 L148,168 M168,158 L170,168" stroke="var(--amber)" stroke-width="2"/>
+              <circle cx="230" cy="124" r="6" fill="var(--amber)"/>
+            </g>
+            <g>
+              <ellipse cx="420" cy="112" rx="36" ry="23" fill="color-mix(in srgb,var(--teal) 20%,var(--card))" stroke="var(--teal)" stroke-width="1.5"/>
+              <path d="M455,106 L488,94 L480,118 Z" fill="color-mix(in srgb,var(--teal) 20%,var(--card))" stroke="var(--teal)" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="388" cy="88" r="15" fill="color-mix(in srgb,var(--teal) 20%,var(--card))" stroke="var(--teal)" stroke-width="1.5"/>
+              <path d="M374,86 L358,90 L374,94 Z" fill="var(--teal)"/>
+              <circle cx="383" cy="84" r="2.2" fill="var(--ink)"/>
+              <path d="M412,134 L410,146 M428,134 L430,146" stroke="var(--teal)" stroke-width="2"/>
+            </g>
+            <text x="120" y="212">the user enjoys the app</text>
+            <text x="350" y="40">the ledger only watches</text>
+          </svg>
+          <figcaption>Muṇḍaka 3.1.1 · one bird eats, the other looks on</figcaption>
+        </figure>
+        <div class="verse"><span class="tag">Muṇḍaka 3.1.1</span>
+          <p class="sa">द्वा सुपर्णा सयुजा सखाया समानं वृक्षं परिषस्वजाते ।<br>तयोरन्यः पिप्पलं स्वाद्वत्त्यनश्नन्नन्यो अभिचाकशीति ॥</p>
+          <p class="iast">dvā suparṇā sayujā sakhāyā samānaṃ vṛkṣaṃ pariṣasvajāte · tayoranyaḥ pippalaṃ svādvattyanaśnannanyo abhicākaśīti</p>
+          <blockquote>“Two birds that are ever associated and have similar names, cling to the same tree. Of these, one eats the fruit of divergent tastes, and the other looks on without eating.”</blockquote>
+          <div class="cap"><span>tr. Swami Gambhirananda</span></div>
+        </div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>The reading</h4>
+          <p>The user is the first bird, busy with life: paying, receiving, selling. The ledger is the second bird. It doesn't eat, it doesn't get in the way, and it doesn't take a cut. It only sees, and what it has seen can't be unseen.</p>
+          <p>So keep verification optional and one tap away. A “verified” tick, a receipt link, a public page anyone can check. Most users will never look, and that's fine. Fairness works because <em>anyone could</em> look, including a journalist, an auditor or an angry member.</p>
+        </div>
+        <div class="verse"><span class="tag">Muṇḍaka 3.1.6</span>
+          <p class="sa">सत्यमेव जयते नानृतं</p>
+          <p class="iast">satyameva jayate nānṛtaṃ</p>
+          <blockquote>“Truth alone wins, and not untruth.”</blockquote>
+          <div class="cap"><span>tr. Swami Gambhirananda</span></div>
+        </div>
+        <div class="reading"><h4>An honest limit</h4>
+          <p>The witness only records what it is shown. If a false weight or a fake name is entered, the chain keeps the lie forever. Spend real effort on the moment of entry: two-party sign-off, trusted devices, photos, field checks. Truth has to win at the input, or the ledger only preserves the untruth.</p>
+        </div>
+      </div>
+    </div>
+    <div class="test"><b>The test</b><p>Can an outsider check the key fact without asking your company, and does the user never <em>have</em> to?</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEP 7 -->
+<section id="s7">
+  <div class="wrap">
+    <div class="num"><span>Step 7 of 7</span><span class="ref">Īśā 0 · Īśā 1 · Chāndogya 7.23.1</span></div>
+    <h2>Leave it full: don't grab, let it grow</h2>
+    <p class="kicker">The Īśā opens with fullness and its first verse forbids greed. Together they describe an open, shared system.</p>
+    <div class="cols2">
+      <div>
+        <div class="verse"><span class="tag">Īśā · Śānti mantra</span>
+          <p class="sa">ॐ पूर्णमदः पूर्णमिदं पूर्णात् पूर्णमुदच्यते ।<br>पूर्णस्य पूर्णमादाय पूर्णमेवावशिष्यते ॥</p>
+          <p class="iast">oṃ pūrṇam adaḥ pūrṇam idaṃ pūrṇāt pūrṇam udacyate · pūrṇasya pūrṇam ādāya pūrṇam evāvaśiṣyate</p>
+          <blockquote>“That is full; this is full, (for) from the full the full (indeed) arises. When the full is taken from the full, what remains is full indeed.”</blockquote>
+          <div class="cap"><span>tr. Vidyavachaspati V. Panoli</span></div>
+        </div>
+        <div class="verse"><span class="tag">Īśā 1</span>
+          <p class="sa">ईशा वास्यमिदं सर्वं यत् किञ्च जगत्यां जगत् ।<br>तेन त्यक्तेन भुञ्जीथा मा गृधः कस्यस्विद् धनम् ॥</p>
+          <p class="iast">īśā vāsyamidaṃ sarvaṃ yat kiñca jagatyāṃ jagat · tena tyaktena bhuñjīthā mā gṛdhaḥ kasyasvid dhanam</p>
+          <blockquote>“All this should be covered by the Lord, whatsoever moves on the earth. By such a renunciation protect (thyself). Covet not the wealth of others.”</blockquote>
+          <div class="cap"><span>tr. Vidyavachaspati V. Panoli</span></div>
+        </div>
+      </div>
+      <div class="prose">
+        <div class="reading"><h4>The reading</h4>
+          <p><strong>Pūrṇam</strong> describes how open software behaves: copy it and the original loses nothing. Publish your contracts and standards, so others can build on them, fork them and plug into them. Your app stays whole when others take from it.</p>
+          <p><strong>Mā gṛdhaḥ</strong>, “covet not”, is the business model. High fees, insider token allocations and locked-in users are the fastest way to turn a fair app back into the platform it was meant to replace. Charge fairly for real service, and let users leave with their data, history and money.</p>
+          <p>Chāndogya 7.23.1: “There is no happiness in anything finite. The infinite alone is happiness.” A walled garden is the finite. An open network, where every new app makes every other one more useful, is <em>bhūmā</em>, and that is how something becomes mainstream.</p>
+        </div>
+      </div>
+    </div>
+    <div class="test"><b>The test</b><p>If your company vanished tomorrow, could users keep their records and could someone else run the service?</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="dadada">
+  <div class="wrap">
+    <div class="num"><span>After launch</span><span class="ref">Bṛhadāraṇyaka 5.2.3</span></div>
+    <h2>Da, da, da: three checks to repeat every release</h2>
+    <p class="kicker">Gods, humans and asuras each ask Prajāpati for teaching. He answers each with one syllable, “Da”. The thunder still repeats it.</p>
+    <div class="verse"><span class="tag">Bṛhadāraṇyaka 5.2.3</span>
+      <p class="sa">तद् एतद् एवैषा दैवी वाग् अनुवदति स्तनयित्नुर् द द द इति ।<br>दम्यत दत्त दयध्वम् इति ।</p>
+      <p class="iast">tad etad evaiṣā daivī vāg anuvadati stanayitnur da da da iti · damyata datta dayadhvam iti</p>
+      <blockquote>“That very thing is repeated by the heavenly voice, the cloud, as ‘Da’, ‘Da’, ‘Da’: ‘Control yourselves’, ‘Give’, and ‘have compassion’.”</blockquote>
+      <div class="cap"><span>tr. Swami Madhavananda</span></div>
+    </div>
+    <div class="da">
+      <div class="card"><div class="s">दम्यत</div><h5>Restrain</h5><ul><li>Fewer features, fewer on-chain parts</li><li>Collect the least data you can</li><li>No token unless it does real work</li></ul></div>
+      <div class="card"><div class="s">दत्त</div><h5>Give</h5><ul><li>Sponsor fees for those who can't pay</li><li>Open-source what others need</li><li>Give value before asking for any</li></ul></div>
+      <div class="card"><div class="s">दयध्वम्</div><h5>Be compassionate</h5><ul><li>Design for the least technical user</li><li>Make every mistake recoverable</li><li>Answer complaints from real humans</li></ul></div>
+    </div>
+    <p class="prose">Īśā 6 says one who “perceives all beings in the Self alone, and the Self in all beings, does not entertain any hatred”. The practical version: picture your least-served user as yourself. If the app would frustrate you in their place, it isn't finished.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="example">
+  <div class="wrap">
+    <div class="num"><span>Worked example</span></div>
+    <h2>One pot, seven steps: a savings circle</h2>
+    <p class="kicker">Rotating savings groups (chit funds, bhishi, committees) are used by millions. Each month everyone pays in and one member takes the pot. They work on trust, and they fail when the organiser disappears with the money.</p>
+    <div class="tw"><table class="t stack">
+      <thead><tr><th>Step</th><th>Question</th><th>For the savings circle</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Step">1 · Dharma</td><td data-l="Question">Who is weak, who is strong?</td><td data-l="Answer">Members are weak. The organiser holding the pot is strong. Rule: the pot can only go to the member whose turn it is.</td></tr>
+        <tr><td data-l="Step">2 · Food</td><td data-l="Question">Is it a daily need?</td><td data-l="Answer">Yes. Monthly savings and emergency money, already a habit.</td></tr>
+        <tr><td data-l="Step">3 · Salt</td><td data-l="Question">Is the chain invisible?</td><td data-l="Answer">Sign in with phone number, pay with UPI, see rupees and names. Wallets, fees and contracts are hidden.</td></tr>
+        <tr><td data-l="Step">4 · Both</td><td data-l="Question">What goes where?</td><td data-l="Answer">Money moves on familiar rails. The schedule, every payment proof and the payout rule live on-chain. Chat and reminders stay off-chain.</td></tr>
+        <tr><td data-l="Step">5 · Guest</td><td data-l="Question">Is onboarding hospitable?</td><td data-l="Answer">Invite by WhatsApp link, local language, voice notes, a group admin who helps members, a recovery plan if a phone is lost.</td></tr>
+        <tr><td data-l="Step">6 · Witness</td><td data-l="Question">Can anyone verify?</td><td data-l="Answer">Every member sees who paid and where the pot went. A public link lets a family member or auditor check too. Payments are confirmed by the bank rail, not typed in.</td></tr>
+        <tr><td data-l="Step">7 · Fullness</td><td data-l="Question">Is it open and ungreedy?</td><td data-l="Answer">A small flat fee, the contract open-sourced, any group can export its full history and move.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="prose" style="font-size:15px;color:var(--muted)">This is an illustration, not legal advice. Savings schemes and digital assets are regulated differently in each country. In India, for example, chit funds fall under the Chit Funds Act, 1982. Check the rules where you build before handling anyone's money.</p>
+
+    <h3 class="sub">The same clay, other pots</h3>
+    <div class="tw"><table class="t stack">
+      <thead><tr><th>Use case</th><th>Weak party</th><th>Strong party</th><th>The rule that must not bend</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Use case">Aid and welfare payments</td><td data-l="Weak">Beneficiary</td><td data-l="Strong">Intermediaries</td><td data-l="Rule">Every rupee released can be traced to the person who received it</td></tr>
+        <tr><td data-l="Use case">Farm produce sale</td><td data-l="Weak">Farmer</td><td data-l="Strong">Buyer or middleman</td><td data-l="Rule">Weight, grade and price agreed at handover can't be changed later</td></tr>
+        <tr><td data-l="Use case">Gig work reputation</td><td data-l="Weak">Worker</td><td data-l="Strong">Platform</td><td data-l="Rule">Ratings and work history belong to the worker and move with them</td></tr>
+        <tr><td data-l="Use case">Certificates and degrees</td><td data-l="Weak">Graduate, employer</td><td data-l="Strong">Forgers, slow institutions</td><td data-l="Rule">Anyone can check the issuer's signature without calling the college</td></tr>
+        <tr><td data-l="Use case">Rent deposits</td><td data-l="Weak">Tenant</td><td data-l="Strong">Landlord</td><td data-l="Rule">The deposit sits in escrow and its release follows agreed conditions</td></tr>
+        <tr><td data-l="Use case">Donations</td><td data-l="Weak">Donor, recipient</td><td data-l="Strong">The charity's insiders</td><td data-l="Rule">Each donation's path to its use is public</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="check">
+  <div class="wrap">
+    <div class="num"><span>Your turn</span></div>
+    <h2>Run your idea through the flow</h2>
+    <p class="kicker">Tick each step your idea passes today. Your answers stay in this browser only.</p>
+    <div class="checker">
+      <div>
+        <label for="ideaName" class="status" style="display:block;margin-bottom:6px">Your idea, in one line</label>
+        <input class="idea" id="ideaName" type="text" placeholder="e.g. Fair crop receipts for my district" autocomplete="off">
+        <div class="qs" id="qs"></div>
+      </div>
+      <aside class="verdict" aria-live="polite">
+        <div class="score"><span id="score">0</span><small> / 7 steps</small></div>
+        <div class="dots" id="dots"></div>
+        <h4 id="vTitle"></h4>
+        <p id="vBody" style="margin:0;font-size:15.5px"></p>
+        <ul id="vFix"></ul>
+        <button class="btn reset" id="resetBtn" type="button">Reset</button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <p class="sa">सत्यमेव जयते नानृतं</p>
+    <p class="iast">satyameva jayate nānṛtaṃ</p>
+    <blockquote>“Truth alone wins, and not untruth.”</blockquote>
+    <cite>Muṇḍaka Upaniṣad 3.1.6 · tr. Swami Gambhirananda</cite>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div><h5>About this page</h5><p style="margin:0 0 10px">Made with UpaSārathi, the 13 Principal Upanishads as a knowledge graph. Sanskrit and translations are quoted from the project's corpus in <code>data/corpus</code>; where a long verse is shortened, only whole clauses are kept. Applying these verses to software is interpretation, not the texts' own meaning.</p><p style="margin:0"><a href="../knowing-doing/">← Also read: “Knowing, not doing”</a></p></div>
+    <div><h5>Translations quoted</h5><ul><li>Īśā, Kaṭha, Kena: Vidyavachaspati V. Panoli</li><li>Chāndogya: Swami Swahananda</li><li>Bṛhadāraṇyaka: Swami Madhavananda</li><li>Muṇḍaka, Taittirīya: Swami Gambhirananda</li></ul></div>
+  </div>
+</footer>
+
+<script>
+{
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+const root = document.documentElement, saved = store.get("ic-theme");
+if (saved) root.dataset.theme = saved;
+$("#themeBtn").addEventListener("click", () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark"; store.set("ic-theme", root.dataset.theme);
+});
+
+/* salt: taste the water */
+const phone = $("#phone"), tb = $("#tasteBtn"), ts = $("#tasteStatus");
+tb.addEventListener("click", () => {
+  const on = !phone.classList.contains("tasted");
+  phone.classList.toggle("tasted", on); tb.setAttribute("aria-pressed", on);
+  tb.textContent = on ? "Hide it again" : "Show what's dissolved";
+  ts.textContent = on ? "Underneath every row: the chain. Same app, same taste." : "This is what the user sees. No chain words anywhere.";
+});
+
+/* checker */
+const Q = [
+  ["Dharma", "I can name the weak party, the strong party, and the one rule that must not bend.", "Bṛhadāraṇyaka 1.4.14", "Find the imbalance first. If no one strong can cheat, you may not need a chain."],
+  ["Food", "It serves something people already do every week or month.", "Taittirīya 3.9", "Tie it to a daily need such as wages, savings, payments or records."],
+  ["Salt", "A first-time user finishes the main task without seeing a wallet, gas or token word.", "Chāndogya 6.13", "Hide the chain: phone or passkey sign-in, sponsored fees, local currency."],
+  ["Both worlds", "Familiar rails handle sign-in, money and support. The chain holds only what must never change.", "Īśā 11", "Move speed, privacy and support off-chain. Keep the chain small."],
+  ["Guest", "Onboarding works in the user's language, on a cheap phone, with a way to recover from mistakes.", "Taittirīya 1.11", "Add recovery, plain-language consent and a human guide."],
+  ["Witness", "Anyone can verify the key fact, nobody has to, and data entry is protected.", "Muṇḍaka 3.1.1", "Add a one-tap ‘verify’ link and guard the moment of data entry."],
+  ["Fullness", "Fees are modest, the core is open, and users can leave with their data.", "Īśā 0–1", "Lower the take, open the standard and make export easy."]
+];
+const qs = $("#qs"), dots = $("#dots");
+qs.innerHTML = Q.map((q, i) => `<label><input type="checkbox" id="q${i}" data-i="${i}"><span><b>${i + 1} · ${q[0]}.</b> ${q[1]}<small>${q[2]}</small></span></label>`).join("");
+dots.innerHTML = Q.map(() => "<i></i>").join("");
+const boxes = $$("#qs input"), idea = $("#ideaName");
+let st = {};
+try { st = JSON.parse(store.get("ic-check") || "{}") || {}; } catch (e) { st = {}; }
+boxes.forEach((b, i) => { b.checked = !!(st.a && st.a[i]); });
+idea.value = typeof st.n === "string" ? st.n : "";
+const render = () => {
+  const a = boxes.map((b) => b.checked), n = a.filter(Boolean).length, name = idea.value.trim();
+  $("#score").textContent = n;
+  $$("#dots i").forEach((d, i) => d.classList.toggle("on", a[i]));
+  const early = !a[0] || !a[1];
+  const title = n === 7 ? "Ready to pilot" : early ? "Decide whether to build first" : n >= 5 ? "Close: polish the experience" : "Fair underneath, hard on top";
+  const body = n === 7 ? "Every step passes. Test it with ten real users from the weak party before you scale."
+    : early ? "Steps 1 and 2 decide whether a chain belongs here at all. Settle them before writing code."
+    : "The idea is sound. What's left is about whether people will use it.";
+  $("#vTitle").textContent = name ? title + ": " + name : title;
+  $("#vBody").textContent = body;
+  const fix = $("#vFix"); fix.innerHTML = "";
+  a.forEach((ok, i) => { if (!ok) { const li = document.createElement("li"); li.textContent = Q[i][0] + ": " + Q[i][3]; fix.appendChild(li); } });
+  store.set("ic-check", JSON.stringify({ a, n: idea.value }));
+};
+boxes.forEach((b) => b.addEventListener("change", render));
+idea.addEventListener("input", render);
+$("#resetBtn").addEventListener("click", () => { boxes.forEach((b) => (b.checked = false)); idea.value = ""; render(); });
+render();
+}
+</script>
+</body>
+</html>
+
+</body></html>
