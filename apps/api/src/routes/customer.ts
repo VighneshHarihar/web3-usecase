@@ -1,5 +1,5 @@
 import type { FastifyInstance } from 'fastify';
-import { and, count, desc, eq, inArray, isNull } from 'drizzle-orm';
+import { and, count, desc, eq, gt, inArray, isNull } from 'drizzle-orm';
 import { db } from '../db/index.js';
 import { counterSessions, enrolments, merchants, notifications, offers, presenceCodes, purchases, redemptions, rewards, visits, waitlist } from '../db/schema.js';
 import { conflict, notFound } from '../lib/errors.js';
@@ -113,7 +113,11 @@ export default async function customerRoutes(app: FastifyInstance) {
     const u = requireUser(req);
     const code = (req.params as { code: string }).code;
     const [p] = await db.select().from(presenceCodes).where(and(eq(presenceCodes.code, code), eq(presenceCodes.userId, u.id)));
-    const [s] = await db.select().from(counterSessions).where(and(eq(counterSessions.presenceCode, code), eq(counterSessions.userId, u.id))).orderBy(desc(counterSessions.createdAt)).limit(1);
+    // Latest counter session for this customer (any recent code), so a scan with the
+    // previous, still-valid code also shows up live on the customer's screen.
+    const [s] = await db.select().from(counterSessions)
+      .where(and(eq(counterSessions.userId, u.id), gt(counterSessions.createdAt, new Date(Date.now() - 5 * 60_000))))
+      .orderBy(desc(counterSessions.createdAt)).limit(1);
     if (!p && !s) throw conflict('CODE_EXPIRED', 'Code expired');
     return { scanned: !!s, result: s?.lastResult ?? null, expiresAt: p?.expiresAt ?? null };
   });

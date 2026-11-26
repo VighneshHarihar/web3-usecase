@@ -22,7 +22,7 @@ export async function buildApp(opts: { logger?: boolean } = {}): Promise<Fastify
     logger: opts.logger === false ? false : {
       level: config.LOG_LEVEL,
       redact: ['req.headers.cookie', 'req.body.phone', 'req.body.code', 'res.headers["set-cookie"]'],
-      ...(config.NODE_ENV === 'development' ? { transport: { target: 'pino-pretty' } } : {}),
+      ...(config.NODE_ENV === 'development' && process.env.LOG_PRETTY !== 'false' ? { transport: { target: 'pino-pretty' } } : {}),
     },
     trustProxy: true,
     bodyLimit: 256 * 1024,

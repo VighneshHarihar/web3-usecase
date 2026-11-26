@@ -10,18 +10,19 @@
 ## PRD §10 coverage
 | PRD case | Test |
 |---|---|
-| Happy 1: merchant signup → offer live | api `merchant.test.ts`, e2e |
-| Happy 2: join → complete → redeem | api `counter.test.ts`, contract, e2e |
+| Happy 1: merchant signup → offer live | api `flow.test.ts`, e2e |
+| Happy 2: join → complete → redeem | api `flow.test.ts`, contract, e2e |
 | Happy 4: failed offer → escrow released | api `sweeper.test.ts`, contract |
-| Edge 1: pool runs out → waitlist | api `customer.test.ts` |
-| Edge 2: withdraw committed rejected | api `pool.test.ts`, contract |
-| Edge 3: change terms with active customers | api `merchant.test.ts` (numeric edit on live offer → 409) |
-| Edge 7: refund / void window | api `counter.test.ts`, contract |
+| Edge 1: pool runs out → waitlist | api `flow.test.ts` |
+| Edge 2: withdraw committed rejected | api `flow.test.ts`, contract |
+| Edge 3: change terms with active customers | api `flow.test.ts` (numeric edit on live offer → 409) |
+| Edge 7: refund / void window | api `flow.test.ts`, contract |
 | Edge 11: pause offer | api + contract |
 | Edge 13: last-second purchase (grace) | rules unit + contract |
 | Edge 14: double redemption | api (parallel redeem → exactly one succeeds) |
 | Security: reentrancy | contract (nonReentrant + SafeERC20, no external calls before state) |
 | Invariant: solvency | contract randomized run, api admin invariant check |
+| DB ⇄ chain divergence | api `zz-chain.test.ts` replays the whole ledger onto Hardhat and compares every merchant balance |
 
 ## Release checklist (Da, da, da, from 01-PRINCIPLES.md)
 - [ ] All four suites green

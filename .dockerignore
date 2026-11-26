@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/.env
+.git
+packages/contracts/artifacts
+packages/contracts/cache
+e2e/test-results
+e2e/playwright-report
+apps/api/.deployments

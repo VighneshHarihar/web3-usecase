@@ -1,0 +1,25 @@
+name: CI
+on:
+  push: { branches: [main, "claude/**"] }
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_HOST_AUTH_METHOD: trust }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: psql -h localhost -U postgres -c "create database loyalink_test" -c "create database loyalink_e2e"
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm --filter @loyallink/e2e exec playwright install --with-deps chromium
+      - run: pnpm e2e

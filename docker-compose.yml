@@ -1,0 +1,38 @@
+# Local, self-contained LoyalLink: Postgres + a dev chain + the app.
+#   docker compose up --build   →  http://localhost:8080
+# Demo data: docker compose exec app node dist/seed.js
+services:
+  db:
+    image: postgres:16-alpine
+    environment: { POSTGRES_PASSWORD: loyallink, POSTGRES_DB: loyallink }
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U postgres"], interval: 5s, retries: 10 }
+
+  chain:
+    image: node:22-slim
+    working_dir: /contracts
+    command: sh -c "npm i --no-audit --no-fund hardhat@2.30.0 solc@0.8.28 >/dev/null && npx hardhat node --hostname 0.0.0.0"
+    volumes: [./packages/contracts/hardhat.chain.cjs:/contracts/hardhat.config.cjs:ro]
+    healthcheck: { test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:8545',{method:'POST',headers:{'content-type':'application/json'},body:'{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":1,\\\"method\\\":\\\"eth_chainId\\\"}'}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""], interval: 5s, retries: 30 }
+
+  app:
+    build: .
+    ports: ["8080:8080"]
+    depends_on:
+      db: { condition: service_healthy }
+      chain: { condition: service_healthy }
+    environment:
+      DATABASE_URL: postgres://postgres:loyallink@db:5432/loyallink
+      APP_ORIGIN: http://localhost:8080
+      # Demo settings: change these before exposing the app to anyone.
+      NODE_ENV: development
+      SESSION_SECRET: change-me-to-a-long-random-string
+      CUSTOMER_REF_SECRET: change-me-to-another-long-random-string
+      OTP_DEV_ECHO: "true"
+      ADMIN_PHONES: "+919999900000"
+      PAYMENTS_PROVIDER: sandbox
+      CHAIN_MODE: local
+      RPC_URL: http://chain:8545
+      LOG_LEVEL: info
+volumes:
+  pgdata:

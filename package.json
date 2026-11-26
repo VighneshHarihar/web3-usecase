@@ -2,18 +2,20 @@
   "name": "loyallink",
   "private": true,
   "version": "1.0.0",
-  "description": "LoyalLink — pre-funded, verifiable loyalty rewards for neighbourhood shops",
+  "description": "LoyalLink \u2014 pre-funded, verifiable loyalty rewards for neighbourhood shops",
   "license": "MIT",
   "packageManager": "pnpm@10.28.0",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "pnpm --filter @loyallink/contracts build && pnpm --filter @loyallink/web build && pnpm --filter @loyallink/api build",
-    "test": "pnpm -r --workspace-concurrency=1 test",
+    "test": "pnpm -r --workspace-concurrency=1 --filter '!@loyallink/e2e' test",
     "typecheck": "pnpm -r typecheck",
     "dev": "pnpm --parallel --filter @loyallink/api --filter @loyallink/web dev",
     "chain": "pnpm --filter @loyallink/contracts node",
     "db:migrate": "pnpm --filter @loyallink/api db:migrate",
     "seed": "pnpm --filter @loyallink/api seed",
-    "e2e": "pnpm --filter @loyallink/e2e test"
+    "e2e": "pnpm --filter @loyallink/web build && pnpm --filter @loyallink/e2e test"
   }
 }

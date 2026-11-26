@@ -7,6 +7,8 @@ export default defineConfig({
   outDir: 'dist',
   clean: true,
   sourcemap: true,
-  noExternal: [/^@loyallink\//],
+  // Bundle everything into self-contained files: the runtime image needs no node_modules.
+  noExternal: [/.*/],
+  external: ['pg-native', 'pino-pretty'],
   banner: { js: "import { createRequire } from 'module'; const require = createRequire(import.meta.url);" },
 });
