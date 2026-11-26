@@ -1,0 +1,27 @@
+{
+  "name": "@loyallink/contracts",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "hardhat compile && node scripts/export-abi.cjs",
+    "test": "hardhat test test/LoyaltyEscrow.test.ts test/LoyaltyEscrow.invariant.ts",
+    "node": "hardhat node --hostname 127.0.0.1 --port 8545",
+    "typecheck": "true"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.1.0",
+    "@nomicfoundation/hardhat-viem": "^2.1.0",
+    "@openzeppelin/contracts": "5.6.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.0.0",
+    "hardhat": "2.30.0",
+    "solc": "0.8.28",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.0",
+    "viem": "^2.58.0"
+  },
+  "exports": {
+    "./abi": "./abi/index.ts"
+  }
+}
