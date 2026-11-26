@@ -1,19 +1,6 @@
 import { z } from 'zod';
 import { MAX_REWARD_VALIDITY_DAYS, MAX_WINDOW_DAYS, MIN_REWARD_VALIDITY_DAYS } from './rules.js';
-
-/** Normalise to E.164. Bare 10-digit numbers are treated as Indian (+91). */
-export function normalizePhone(input: string): string | null {
-  const s = input.replace(/[\s\-().]/g, '');
-  if (/^\+[1-9]\d{7,14}$/.test(s)) return s;
-  const digits = s.replace(/^0+/, '');
-  if (/^[6-9]\d{9}$/.test(digits)) return `+91${digits}`;
-  if (/^91[6-9]\d{9}$/.test(digits)) return `+${digits}`;
-  return null;
-}
-
-export function maskPhone(e164: string): string {
-  return `••••${e164.slice(-4)}`;
-}
+import { CATEGORIES, normalizePhone } from './phone.js';
 
 export const phoneSchema = z
   .string()
@@ -38,8 +25,6 @@ export const meUpdateSchema = z.object({
 
 const paise = z.number().int().min(0).max(1_000_000_000_00);
 
-export const CATEGORIES = ['grocery', 'food', 'coffee', 'bakery', 'retail', 'pharmacy', 'salon', 'services', 'other'] as const;
-export type Category = (typeof CATEGORIES)[number];
 
 const GSTIN = /^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
 const PAN = /^[A-Z]{5}\d{4}[A-Z]$/;

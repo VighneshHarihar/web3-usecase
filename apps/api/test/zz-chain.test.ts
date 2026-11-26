@@ -23,7 +23,7 @@ async function waitForRpc(url: string) {
 
 beforeAll(async () => {
   const cwd = path.resolve(__dirname, '../../../packages/contracts');
-  node = spawn('npx', ['hardhat', 'node', '--port', String(PORT)], { cwd, stdio: 'ignore' });
+  node = spawn('npx', ['hardhat', 'node', '--port', String(PORT)], { cwd, stdio: 'ignore', detached: true });
   await waitForRpc(`http://127.0.0.1:${PORT}`);
   // The sweeper test simulated "31 days later"; move chain time past that so those expiries are valid.
   await fetch(`http://127.0.0.1:${PORT}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'evm_increaseTime', params: [62 * 86400] }) });
@@ -33,7 +33,13 @@ beforeAll(async () => {
 });
 
 afterAll(() => {
-  node?.kill('SIGTERM');
+  if (node?.pid) {
+    try {
+      process.kill(-node.pid, 'SIGTERM'); // the whole process group (npx → hardhat)
+    } catch {
+      /* already gone */
+    }
+  }
 });
 
 describe('chain relayer', () => {

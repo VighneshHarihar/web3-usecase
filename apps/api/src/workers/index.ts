@@ -79,19 +79,26 @@ export function startWorkers(log: FastifyBaseLogger) {
   let leaderClient: PoolClient | null = null;
   let isLeader = false;
 
-  async function tryLead() {
-    if (isLeader) return true;
-    try {
-      leaderClient ??= await pool.connect();
-      const r = await leaderClient.query('select pg_try_advisory_lock($1) as ok', [LEADER_LOCK]);
-      isLeader = !!r.rows[0]?.ok;
-      if (isLeader) log.info('workers: this instance is the leader');
-    } catch (e) {
-      log.error(e, 'workers: leader check failed');
-      leaderClient?.release(true);
-      leaderClient = null;
-    }
-    return isLeader;
+  let pending: Promise<boolean> | null = null;
+  // One connection holds the session-level advisory lock; concurrent callers share one attempt.
+  function tryLead(): Promise<boolean> {
+    if (isLeader) return Promise.resolve(true);
+    pending ??= (async () => {
+      try {
+        leaderClient ??= await pool.connect();
+        const r = await leaderClient.query('select pg_try_advisory_lock($1) as ok', [LEADER_LOCK]);
+        isLeader = !!r.rows[0]?.ok;
+        if (isLeader) log.info('workers: this instance is the leader');
+      } catch (e) {
+        log.error(e, 'workers: leader check failed');
+        leaderClient?.release(true);
+        leaderClient = null;
+      } finally {
+        pending = null;
+      }
+      return isLeader;
+    })();
+    return pending;
   }
 
   async function loop(name: string, every: number, fn: () => Promise<unknown>) {
